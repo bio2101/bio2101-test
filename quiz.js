@@ -666,6 +666,7 @@ const allQuestions = [
 // --- LOGIC FOR TEST BANK (test_bank.html) ---
 
 let currentBankQuestionIndex = 0;
+let bankQuestions = []; // <-- NEW: Create an array to hold the shuffled questions
 
 function initTestBank() {
     // DOM elements for Test Bank
@@ -675,24 +676,27 @@ function initTestBank() {
 
     if (!questionTextEl) return; // Only run this logic on test_bank.html
 
+    // --- NEW: Shuffle the questions on page load ---
+    bankQuestions = [...allQuestions].sort(() => 0.5 - Math.random());
+    
     nextButton.addEventListener('click', () => {
         currentBankQuestionIndex++;
-        if (currentBankQuestionIndex < allQuestions.length) {
+        // Check against the shuffled array's length
+        if (currentBankQuestionIndex < bankQuestions.length) {
             loadBankQuestion();
         } else {
-            // Loop back to the beginning
+            // Loop back to the beginning and re-shuffle
             currentBankQuestionIndex = 0;
+            bankQuestions = [...allQuestions].sort(() => 0.5 - Math.random());
             loadBankQuestion();
-            // Or, show completion message:
-            // questionTextEl.innerText = "You have completed the test bank!";
-            // optionsContainerEl.innerHTML = "";
-            // nextButton.style.display = 'none';
         }
     });
 
     function loadBankQuestion() {
         nextButton.style.display = 'none'; // Hide next button until answer is selected
-        const currentQuestion = allQuestions[currentBankQuestionIndex];
+        
+        // Load from the shuffled array
+        const currentQuestion = bankQuestions[currentBankQuestionIndex];
         
         questionTextEl.innerText = currentQuestion.question;
         optionsContainerEl.innerHTML = ""; // Clear old options
@@ -712,7 +716,9 @@ function initTestBank() {
     function selectBankAnswer(e) {
         const selectedOption = e.target;
         const selectedIndex = parseInt(selectedOption.dataset.index);
-        const correctIndex = allQuestions[currentBankQuestionIndex].answer;
+        
+        // Check answer in the shuffled array
+        const correctIndex = bankQuestions[currentBankQuestionIndex].answer;
 
         if (selectedIndex === correctIndex) {
             selectedOption.classList.add('correct');
@@ -732,7 +738,7 @@ function initTestBank() {
         nextButton.style.display = 'inline-block';
     }
 
-    // Initial load
+    // Initial load (will now be the first random question)
     loadBankQuestion();
 }
 
