@@ -1,0 +1,248 @@
+/* Basic Styles */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+    margin: 0;
+    padding: 0; /* Changed padding to 0 for sticky header */
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Make container on test page sit below sticky header */
+body:has(#quiz-container) .container {
+    padding-top: 90px; /* Provides space for the sticky HUD */
+}
+/* Homepage container remains normal */
+body:has(#home) .container {
+    padding-top: 20px;
+    margin-top: 20px;
+}
+/* Test bank container remains normal */
+body:has(#quiz-container) .container:not(:has(#hud)) {
+     padding-top: 20px;
+     margin-top: 20px;
+}
+
+
+h1, h2, h3 {
+    color: #1a2b4d;
+}
+
+/* Homepage */
+#home {
+    text-align: center;
+    padding: 40px 0;
+}
+
+#home h1 {
+    margin-bottom: 40px;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    margin: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #28a745;
+}
+.btn-primary:hover {
+    background-color: #218838;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Quiz Container (Shared) */
+#quiz-container {
+    /* Removed padding, as it's on the .container now */
+}
+
+#question-header {
+    margin-bottom: 20px;
+}
+
+#question-text {
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+/* === Test Bank (One-by-one) Styles === */
+.options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.option:hover:not(.disabled) {
+    background-color: #e9ecef;
+}
+
+.option.selected {
+    background-color: #cce5ff;
+    border-color: #007bff;
+}
+
+.option.disabled {
+    pointer-events: none;
+}
+.options-grid.disabled {
+    pointer-events: none;
+}
+
+
+/* === Timed Test (All-at-once) Styles === */
+#test-form-container {
+    margin-top: 20px;
+}
+
+.test-question-block {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: #fdfdfd;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+.test-question-block h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.test-option-label {
+    display: block;
+    padding: 10px 12px;
+    margin: 5px 0;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.test-option-label:hover {
+    background-color: #e9ecef;
+}
+
+.test-option-label input[type="radio"] {
+    margin-right: 10px;
+}
+
+
+/* === Shared Feedback/Review Styles === */
+.option.correct, .review-correct {
+    background-color: #d4edda;
+    border-color: #28a745;
+    color: #155724;
+}
+
+.option.wrong, .review-wrong {
+    background-color: #f8d7da;
+    border-color: #dc3545;
+    color: #721c24;
+}
+
+/* === HUD & Controls === */
+#hud {
+    /* This is the new "Sticky Header" style for the timer */
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Vertically center items */
+    
+    position: fixed; /* Stick to the viewport */
+    top: 0;
+    left: 0;
+    right: 0;
+    
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    
+    padding: 15px 20px; /* Add some padding */
+    
+    /* Center it like the .container */
+    max-width: 800px;
+    margin: 0 auto;
+    
+    /* To make it fit inside the container's width */
+    box-sizing: border-box; 
+}
+
+#hud h3 {
+    margin: 0; /* Remove default h3 margins */
+}
+
+#timer {
+    color: #dc3545;
+    font-weight: 700;
+}
+
+.controls {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* Results Page */
+.hidden {
+    display: none;
+}
+
+#results-container {
+    text-align: center;
+}
+
+#review-section {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.review-question {
+    margin-bottom: 25px;
+    padding: 15px;
+    background: #fdfdfd;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+.review-question h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timed Test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="quiz-container">
+            <div id="hud">
+                <h3 id="timer">Time: 60:00</h3>
+                <h3>Answer all 40 questions.</h3>
+            </div>
+            
+            <div id="test-form-container"></div>
+
+            <div class="controls">
+                <button id="submit-btn" class="btn btn-primary">Submit Test</button>
+                <a href="index.html" class="btn btn-secondary">Main Page</a>
+            </div>
+        </div>
+
+        <div id="results-container" class="hidden">
+            <h1 id="final-score">Your Score: 0 / 40</h1>
+            <div class="controls">
+                <button id="try-again-btn" class="btn">Try Again</button>
+                <a href="index.html" class="btn btn-secondary">Main Page</a>
+            </div>
+            <hr>
+            <h2>Review Your Answers</h2>
+            <div id="review-section">
+                </div>
+        </div>
+    </div>
+    
+    <script src="quiz.js"></script>
+    <script>
+        // Initialize Timed Test Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            initTest();
+        });
+    </script>
+</body>
+</html>
